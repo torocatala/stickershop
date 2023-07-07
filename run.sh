@@ -1,5 +1,5 @@
 #!/bin/bash
-
+reset
 # Check for Docker 
 if ! command -v docker &> /dev/null; then
   echo "Docker is required to run stickershop. Please install Docker and try again."
@@ -12,9 +12,13 @@ if ! command -v docker-compose &> /dev/null; then
   exit 1 
 fi
 
+# Stop the app
+echo "Stopping stickershop..."
+docker-compose down
+
 # Start the app
 echo "Starting stickershop..."
-docker-compose up -d
+docker-compose up -d --force-recreate
 
 # Check if the app started successfully 
 echo "Waiting for stickershop to start..."
@@ -30,3 +34,6 @@ echo "  docker-compose logs -f"
 # Stop the app
 echo "To stop stickershop app, run:"
 echo "  docker-compose down"
+
+docker ps -a
+docker logs -f stickershop-web-1

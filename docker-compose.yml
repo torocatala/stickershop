@@ -4,8 +4,9 @@ services:
     build: .
     volumes:
       - .:/app
+      - /app/vendor
     ports:
       - "3000:3000"
     environment:
-      RAILS_ENV: dev
-      RACK_ENV: dev
+      RAILS_ENV: development
+      RACK_ENV: development
