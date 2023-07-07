@@ -1,0 +1,11 @@
+version: "3"
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: dev
+      RACK_ENV: dev
