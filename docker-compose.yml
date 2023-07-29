@@ -1,8 +1,8 @@
 version: "3"
 services:
   frontend:
-    build: 
-      context: ./frontend
+    build: ./frontend
+    user: "${UID}:${GID}"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -11,6 +11,7 @@ services:
 
   rbbackend:
     build: ./rbbackend
+    user: "${UID}:${GID}"
     volumes:
       - ./rbbackend/:/app
       - /app/vendor

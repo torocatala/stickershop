@@ -7,12 +7,17 @@ if ! command -v docker &> /dev/null; then
   exit 1
 fi
 
-#Clean
+# Clean environment
 echo "Cleaning the environment..."
 docker rm -f $(docker ps -qa) 2>/dev/null
 docker volume rm $(docker volume ls -q) 2>/dev/null
 rm -f rbbackend/tmp/pids/server.pid 2>/dev/null
 echo ""
+
+# Set environment variables
+# (in some systems and shells, these might not be exported to child processes (like Docker Compose) by default.)
+export UID=$(id -u)
+export GID=$(id -g)
 
 # Start the app
 echo "Starting stickershop..."
