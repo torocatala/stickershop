@@ -16,8 +16,8 @@ echo ""
 
 # Set environment variables
 # (in some systems and shells, these might not be exported to child processes (like Docker Compose) by default.)
-export UID=$(id -u)
-export GID=$(id -g)
+export UID=$(id -u) 2>/dev/null
+export GID=$(id -g) 2>/dev/null
 
 # Start the app
 echo "Starting stickershop..."
@@ -25,7 +25,7 @@ docker-compose up -d --force-recreate
 echo ""
 
 # Check if the app started successfully 
-echo "Waiting for stickershop sytem to start..."
+echo "Waiting for stickershop system to start..."
 until curl -s http://localhost:3000 > /dev/null; do
   sleep 1 
 done
