@@ -24,7 +24,7 @@ COPY . .
 RUN rails assets:precompile
 
 # Set port 
-EXPOSE 3000
+EXPOSE 3001
 
 # Run server
-CMD ["rails", "s", "-p", "3000",  "-b", "0.0.0.0"]
+CMD ["rails", "s", "-p", "3001",  "-b", "0.0.0.0"]
