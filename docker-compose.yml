@@ -1,9 +1,9 @@
 version: "3"
 services:
-  web:
-    build: .
+  rbbackend:
+    build: ./rbbackend
     volumes:
-      - .:/app
+      - ./rbbackend/:/app
       - /app/vendor
     ports:
       - "3000:3000"

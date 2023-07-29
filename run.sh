@@ -16,6 +16,11 @@ fi
 echo "Stopping stickershop..."
 docker-compose down
 
+#Clean
+docker rm -f $(docker ps -qa) 2>/dev/null
+docker volume rm $(docker volume ls -q) 2>/dev/null
+rm -f rbbackend/tmp/pids/server.pid
+
 # Start the app
 echo "Starting stickershop..."
 docker-compose up -d --force-recreate
@@ -36,4 +41,5 @@ echo "To stop stickershop app, run:"
 echo "  docker-compose down"
 
 docker ps -a
-docker logs -f stickershop-web-1
+
+docker logs stickershop-rbbackend-1
