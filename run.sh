@@ -9,8 +9,6 @@ fi
 
 # Clean environment
 echo "Cleaning the environment..."
-docker rm -f $(docker ps -qa) 2>/dev/null
-docker volume rm $(docker volume ls -q) 2>/dev/null
 rm -f rbbackend/tmp/pids/server.pid 2>/dev/null
 echo ""
 
@@ -18,6 +16,19 @@ echo ""
 # (in some systems and shells, these might not be exported to child processes (like Docker Compose) by default.)
 export UID=$(id -u) 2>/dev/null
 export GID=$(id -g) 2>/dev/null
+
+if git diff --quiet --exit-code frontend/package.json; then
+  echo "No changes detected in frontend/package.json. Using existing Docker image."
+else
+  echo "Changes detected in package.json. Rebuilding the Docker image..."
+  docker-compose build frontend
+fi
+if git diff --quiet --exit-code rbbackend/Gemfile; then
+  echo "No changes detected in frontend/Gemfile. Using existing Docker image."
+else
+  echo "Changes detected in Gemfile. Rebuilding the Docker image..."
+  docker-compose build rbbackend
+fi
 
 # Start the app
 echo "Starting stickershop..."

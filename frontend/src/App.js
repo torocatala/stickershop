@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import { Link } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         >
           Learn React
         </a>
+        <Link to="/">Go Home</Link>
+        <Link to="/hello">Go to HelloName page</Link>
       </header>
     </div>
   );
