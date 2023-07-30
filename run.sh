@@ -18,7 +18,7 @@ wait_for_service() {
 
   if [ ${attempt_counter} -eq ${max_attempts} ]; then
     echo "Max attempts reached for ${service_name}, failing..."
-    docker logs "$service_name"
+    docker compose logs "$service_name"
     exit 1
   fi
 
@@ -67,6 +67,10 @@ check_file_changes "rbbackend" "rbbackend/Gemfile"
 echo "Starting stickershop..."
 docker compose up -d --force-recreate
 echo ""
+
+# Init Database
+echo "Initializing the database if necessary..."
+./exec.sh rbbackend "bin/rails db:create" 2>&1 >/dev/null
 
 # Check if the app started successfully 
 wait_for_service "frontend" "http://localhost:3000"
