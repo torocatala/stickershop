@@ -74,7 +74,7 @@ wait_for_service "rbbackend" "http://localhost:3001"
 echo ""
 
 # Useful info
-echo "To view logs, run:" 
+echo "To view logs, run:"
 echo "  docker compose logs -f"
 echo ""
 
