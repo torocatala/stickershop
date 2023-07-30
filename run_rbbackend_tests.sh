@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # get container id of the rbbackend service
-container_id=$(docker-compose ps -q rbbackend)
+container_id=$(docker compose ps -q rbbackend)
 
 # if the container is not running, start it
 if [ -z "$container_id" ]; then

@@ -15,7 +15,7 @@ service=$1
 
 if [ "$service" == "frontend" ] || [ "$service" == "jsbackend" ] || [ "$service" == "rbbackend" ]
   then
-    container_id=$(docker-compose ps -q $service)
+    container_id=$(docker compose ps -q $service)
     docker exec -it $container_id /bin/bash
   else
     usage
