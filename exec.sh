@@ -12,9 +12,9 @@ if [ $# -eq 0 ]
 fi
 
 service=$1
-cmd=${2:-/bin/bash}
+cmd=${2:-/bin/sh}
 
-if [ "$service" == "frontend" ] || [ "$service" == "jsbackend" ] || [ "$service" == "rbbackend" ]
+if [ "$service" == "frontend" ] || [ "$service" == "jsbackend" ] || [ "$service" == "rbbackend" ] || [ "$service" == "pgadmin" ] || [ "$service" == "db" ]
   then
     container_id=$(docker compose ps -q $service)
     docker exec -it $container_id $cmd

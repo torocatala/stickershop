@@ -8,7 +8,7 @@ wait_for_service() {
   echo "Waiting for ${service_name} to start..."
 
   local attempt_counter=0
-  local max_attempts=10
+  local max_attempts=15
 
   until $(curl --output /dev/null --silent --head --fail ${service_url}) || [ ${attempt_counter} -eq ${max_attempts} ]; do
     printf '.'
@@ -22,7 +22,7 @@ wait_for_service() {
     exit 1
   fi
 
-  echo "${service_name} system started!"
+  echo "${service_name} service started at ${service_url} !"
 }
 
 check_file_changes() {
@@ -70,11 +70,14 @@ echo ""
 
 # Init Database
 echo "Initializing the database if necessary..."
-./exec.sh rbbackend "bin/rails db:create" 2>&1 >/dev/null
+./exec.sh rbbackend "rails db:create" 2>&1 >/dev/null
+./exec.sh rbbackend "rails db:migrate" 2>&1 >/dev/null
+./exec.sh rbbackend "rails db:seed" 2>&1 >/dev/null
 
 # Check if the app started successfully 
 wait_for_service "frontend" "http://localhost:3000"
 wait_for_service "rbbackend" "http://localhost:3001"
+wait_for_service "pgadmin" "http://localhost:5050"
 echo ""
 
 # Useful info
